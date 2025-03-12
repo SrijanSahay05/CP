@@ -1,24 +1,33 @@
+#include <math.h>
 #include <stdio.h>
-
-int IsArmstrong(int n) {
-  int sum = 0;
+int isArmStrong(int n) {
   int temp = n;
-  while (n) {
-    sum += (n % 10) * (n % 10) * (n % 10);
-    n /= 10;
+  int sum = 0;
+  int num_digits = 0;
+  while (temp > 0) {
+    num_digits++;
+    temp /= 10;
   }
-  return sum == temp;
+
+  temp = n;
+  while (temp > 0) {
+    sum += pow(temp % 10, num_digits);
+    temp /= 10;
+  }
+  return sum == n;
 }
 
 int main() {
-  int startIndex, endIndex;
-  printf("Enter the start index: ");
-  scanf("%d", &startIndex);
-  printf("Enter the end index: ");
-  scanf("%d", &endIndex);
-  for (int i = startIndex; i <= endIndex; i++) {
-    if (IsArmstrong(i)) {
-      printf("%d is an Armstrong number\n", i);
+  int lower_bound, upper_bound;
+  printf("Enter lower bound: ");
+  scanf("%d", &lower_bound);
+  printf("Enter upper bound: ");
+  scanf("%d", &upper_bound);
+  printf("Armstrong numbers in the range %d to %d are: ", lower_bound,
+         upper_bound);
+  for (int i = lower_bound; i <= upper_bound; i++) {
+    if (isArmStrong(i)) {
+      printf("%d ", i);
     }
   }
   return 0;
